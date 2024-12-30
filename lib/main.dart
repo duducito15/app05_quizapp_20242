@@ -1,3 +1,4 @@
+import 'package:app05_quizapp_20242/question.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -39,6 +40,13 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Widget> scoreKeeper = [];
 
+  List<Question> questions1 = [
+    Question(questionText: "El hombre llegó a la Luna?", questionAnswer: true),
+    Question(questionText: "Tomaste desayuno?", questionAnswer: true),
+    Question(questionText: "El tomaylla es arquero?", questionAnswer: false),
+    Question(questionText: "Faltas a clases?", questionAnswer: true),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +66,7 @@ class _QuizPageState extends State<QuizPage> {
             flex: 5,
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questions1[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 20, color: Colors.white),
               ),
@@ -70,7 +78,8 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer = answers[questionNumber];
+                  bool correctAnswer =
+                      questions1[questionNumber].questionAnswer;
 
                   if (correctAnswer == true) {
                     scoreKeeper.add(
@@ -96,6 +105,18 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
+                  bool correctAnswer =
+                      questions1[questionNumber].questionAnswer;
+
+                  if (correctAnswer == false) {
+                    scoreKeeper.add(
+                      Icon(Icons.check, color: Colors.greenAccent),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(Icons.close, color: Colors.redAccent),
+                    );
+                  }
                   questionNumber++;
                   setState(() {});
                 },
