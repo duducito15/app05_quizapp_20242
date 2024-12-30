@@ -1,4 +1,5 @@
 import 'package:app05_quizapp_20242/question.dart';
+import 'package:app05_quizapp_20242/quiz_brain.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -22,30 +23,26 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  int questionNumber = 0;
-
-  List<String> questions = [
-    "El hombre llegó a la Luna?",
-    "Tomaste desayuno?",
-    "El tomaylla es arquero?",
-    "Faltas a clases?",
-  ];
-
-  List<bool> answers = [
-    true,
-    true,
-    false,
-    true,
-  ];
-
   List<Widget> scoreKeeper = [];
 
-  List<Question> questions1 = [
-    Question(questionText: "El hombre llegó a la Luna?", questionAnswer: true),
-    Question(questionText: "Tomaste desayuno?", questionAnswer: true),
-    Question(questionText: "El tomaylla es arquero?", questionAnswer: false),
-    Question(questionText: "Faltas a clases?", questionAnswer: true),
-  ];
+  QuizBrain quizBrain = QuizBrain();
+
+  checkAnswer(bool userAnswer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer();
+
+    if (correctAnswer == userAnswer) {
+      scoreKeeper.add(
+        Icon(Icons.check, color: Colors.greenAccent),
+      );
+    } else {
+      scoreKeeper.add(
+        Icon(Icons.close, color: Colors.redAccent),
+      );
+    }
+
+    quizBrain.nextQuestion();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +63,8 @@ class _QuizPageState extends State<QuizPage> {
             flex: 5,
             child: Center(
               child: Text(
-                questions1[questionNumber].questionText,
+                //quizBrain.questions[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 20, color: Colors.white),
               ),
@@ -78,21 +76,7 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer =
-                      questions1[questionNumber].questionAnswer;
-
-                  if (correctAnswer == true) {
-                    scoreKeeper.add(
-                      Icon(Icons.check, color: Colors.greenAccent),
-                    );
-                  } else {
-                    scoreKeeper.add(
-                      Icon(Icons.close, color: Colors.redAccent),
-                    );
-                  }
-
-                  questionNumber++;
-                  setState(() {});
+                  checkAnswer(true);
                 },
                 color: Colors.greenAccent,
                 child: const Text("Verdadero"),
@@ -105,20 +89,7 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer =
-                      questions1[questionNumber].questionAnswer;
-
-                  if (correctAnswer == false) {
-                    scoreKeeper.add(
-                      Icon(Icons.check, color: Colors.greenAccent),
-                    );
-                  } else {
-                    scoreKeeper.add(
-                      Icon(Icons.close, color: Colors.redAccent),
-                    );
-                  }
-                  questionNumber++;
-                  setState(() {});
+                  checkAnswer(false);
                 },
                 color: Colors.redAccent,
                 child: const Text("Falso"),
