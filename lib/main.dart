@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
 }
 
 class QuizPage extends StatefulWidget {
+  const QuizPage({super.key});
+
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
@@ -28,23 +30,25 @@ class _QuizPageState extends State<QuizPage> {
     "Faltas a clases?",
   ];
 
-  List<Widget> scoreKeeper = [
-    Icon(Icons.check, color: Colors.greenAccent),
-    Icon(Icons.close, color: Colors.redAccent),
-    Icon(Icons.check, color: Colors.greenAccent),
-    Icon(Icons.close, color: Colors.redAccent),
+  List<bool> answers = [
+    true,
+    true,
+    false,
+    true,
   ];
+
+  List<Widget> scoreKeeper = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0d1b2a),
+      backgroundColor: const Color(0xFF0d1b2a),
       appBar: AppBar(
         title: const Text(
           'QuizApp',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF0d1b2a),
+        backgroundColor: const Color(0xFF0d1b2a),
         centerTitle: true,
       ),
       body: Column(
@@ -56,7 +60,33 @@ class _QuizPageState extends State<QuizPage> {
               child: Text(
                 questions[questionNumber],
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: MaterialButton(
+                onPressed: () {
+                  bool correctAnswer = answers[questionNumber];
+
+                  if (correctAnswer == true) {
+                    scoreKeeper.add(
+                      Icon(Icons.check, color: Colors.greenAccent),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(Icons.close, color: Colors.redAccent),
+                    );
+                  }
+
+                  questionNumber++;
+                  setState(() {});
+                },
+                color: Colors.greenAccent,
+                child: const Text("Verdadero"),
               ),
             ),
           ),
@@ -67,22 +97,10 @@ class _QuizPageState extends State<QuizPage> {
               child: MaterialButton(
                 onPressed: () {
                   questionNumber++;
-                  print(questionNumber);
                   setState(() {});
                 },
-                child: const Text("Verdadero"),
-                color: Colors.greenAccent,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: MaterialButton(
-                onPressed: () {},
-                child: const Text("Falso"),
                 color: Colors.redAccent,
+                child: const Text("Falso"),
               ),
             ),
           ),
