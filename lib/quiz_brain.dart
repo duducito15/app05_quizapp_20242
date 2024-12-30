@@ -23,4 +23,16 @@ class QuizBrain {
       _questionNumber++;
     }
   }
+
+  bool isFinished() {
+    if (_questionNumber >= _questions.length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void restart() {
+    _questionNumber = 0;
+  }
 }

@@ -28,20 +28,24 @@ class _QuizPageState extends State<QuizPage> {
   QuizBrain quizBrain = QuizBrain();
 
   checkAnswer(bool userAnswer) {
-    bool correctAnswer = quizBrain.getQuestionAnswer();
-
-    if (correctAnswer == userAnswer) {
-      scoreKeeper.add(
-        Icon(Icons.check, color: Colors.greenAccent),
-      );
+    if (quizBrain.isFinished() == true) {
+      //mensaje finalizado
     } else {
-      scoreKeeper.add(
-        Icon(Icons.close, color: Colors.redAccent),
-      );
-    }
+      bool correctAnswer = quizBrain.getQuestionAnswer();
 
-    quizBrain.nextQuestion();
-    setState(() {});
+      if (correctAnswer == userAnswer) {
+        scoreKeeper.add(
+          Icon(Icons.check, color: Colors.greenAccent),
+        );
+      } else {
+        scoreKeeper.add(
+          Icon(Icons.close, color: Colors.redAccent),
+        );
+      }
+
+      quizBrain.nextQuestion();
+      setState(() {});
+    }
   }
 
   @override
