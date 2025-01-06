@@ -1,6 +1,6 @@
-import 'package:app05_quizapp_20242/question.dart';
 import 'package:app05_quizapp_20242/quiz_brain.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() => runApp(const MyApp());
 
@@ -29,7 +29,25 @@ class _QuizPageState extends State<QuizPage> {
 
   checkAnswer(bool userAnswer) {
     if (quizBrain.isFinished() == true) {
-      //mensaje finalizado
+      Alert(
+        context: context,
+        type: AlertType.success,
+        title: "QuizApp",
+        desc: "El quiz ha finalizado.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Aceptar",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+          )
+        ],
+      ).show();
+      quizBrain.restart();
+      scoreKeeper.clear();
+      setState(() {});
     } else {
       bool correctAnswer = quizBrain.getQuestionAnswer();
 
