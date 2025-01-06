@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: QuizPage(),
     );
   }
@@ -35,11 +35,11 @@ class _QuizPageState extends State<QuizPage> {
 
       if (correctAnswer == userAnswer) {
         scoreKeeper.add(
-          Icon(Icons.check, color: Colors.greenAccent),
+          const Icon(Icons.check, color: Colors.greenAccent),
         );
       } else {
         scoreKeeper.add(
-          Icon(Icons.close, color: Colors.redAccent),
+          const Icon(Icons.close, color: Colors.redAccent),
         );
       }
 

@@ -1,7 +1,7 @@
 import 'package:app05_quizapp_20242/question.dart';
 
 class QuizBrain {
-  List<Question> _questions = [
+  final List<Question> _questions = [
     Question(questionText: "El hombre llegó a la Luna?", questionAnswer: true),
     Question(questionText: "Tomaste desayuno?", questionAnswer: true),
     Question(questionText: "El tomaylla es arquero?", questionAnswer: false),
